@@ -24,9 +24,6 @@ const codiciScontoLength = codiciSconto.length;
 const codiceInput = document.getElementById("codicePromozionale");
 const errorMsg = document.querySelector(".errorMessages");
 
-//const prova = prompt("Inserisci un nome");
-//console.log( validateName(prova));
-
 //Event Submit
 form.addEventListener("submit", function (event) {
       //Reset error message
@@ -93,6 +90,12 @@ form.addEventListener("submit", function (event) {
 
 
 //FUNCTIONS
+
+/**
+ * Funzione che verifica se il nome o il cognome è valido. Restituisce un valore booleano.
+ * @param {string} name
+ * @returns {boolean}
+ */
 function validateName(name) {
 
    let isValid = true;
@@ -113,6 +116,12 @@ function validateName(name) {
    return isValid;
 }
 
+
+/**
+ * Funzione che verifica se il form select è compilato correttamente. Restituisce un valore booleano.
+ * @param {string} selectValue
+ * @returns {boolean}
+ */
 function validateSelect ( selectValue ){
    let isValid = true;
 
