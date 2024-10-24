@@ -9,6 +9,7 @@
     <!-- Bootstrap CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -21,8 +22,10 @@
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
-                    <ul class=" navbar-nav me-auto mb-2 mb-lg-0">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                    <!-- ms-auto per far andare a destra la lista -->
+                    <ul class=" navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link" href="#">Home</a>
                         </li>
@@ -40,61 +43,87 @@
 
     <main>
         <div class="container my-3">
-            <section>
-                <h1>Richiesta preventivo</h1>
-                <p>Compila il form per richiedere un preventivo per i nostri servizi di sviluppo.</p>
-            </section>
+
 
             <section>
-                <form>
-                    <!-- Nome -->
-                    <label for="inputNome">Nome</label>
-                    <input class="form-control mb-3" type="text" id="inputNome">
 
-                    <!-- Cognome -->
-                    <label for="inputCognome">Cognome</label>
-                    <input class="form-control mb-3" type="text" id="inputCognome">
 
-                    <!-- Email -->
-                    <label for="inputEmail">Email</label>
-                    <input class="form-control mb-3" type="email" id="inputEmail">
+                <div class="row">
 
-                    <!-- Tipo di lavoro -->
-                    <label for="lavoro">Tipo di lavoro</label>
-                    <select class="form-select mb-3" id="lavoro">
-                        <option selected>Seleziona il tipo di lavoro</option>
-                        <option value="backend">Backed Development</option>
-                        <option value="frontend">Frontend
-                            Development</option>
-                        <option value="analysis">Project Analysis</option>
-                    </select>
+                    <div class="col-12 col-lg-8">
+                        <!-- Titolo e descrizione -->
+                        <h1>Richiesta preventivo</h1>
+                        <p>Compila il form per richiedere un preventivo per i nostri servizi di sviluppo.</p>
 
-                    <!-- Textarea -->
-                    <label for="textArea">Textarea con Bootstrap 5</label>
-                    <textarea class="form-control mb-3" id="textArea"></textarea>
+                        <!-- Form -->
+                        <form>
+                            <!-- Nome -->
+                            <label for="inputNome">Nome</label>
+                            <input class="form-control mb-3" type="text" id="inputNome">
 
-                    <!-- Codice promozionale -->
-                    <label for="codicePromozionale">Codice Promozionale (opzionale)</label>
-                    <input class="form-control mb-3" type="text" id="codicePromozionale">
+                            <!-- Cognome -->
+                            <label for="inputCognome">Cognome</label>
+                            <input class="form-control mb-3" type="text" id="inputCognome">
 
-                    <!-- Privacy checkbox -->
-                    <input class="form-check-input mb-5" type="checkbox" value="" id="privacyCheck">
-                    <label class="form-check-label" for="privacyCheck">
-                        Accetto la Privacy Policy
-                    </label>
+                            <!-- Email -->
+                            <label for="inputEmail">Email</label>
+                            <input class="form-control mb-3" type="email" id="inputEmail">
 
-                    <!-- Submit -->
-                    <div class="row mb-3">
-                        <div class="col-12 col-lg-6 mb-3 d-flex justify-content-center align-items-center">
-                            <button class="btn btn-primary" type="submit">Calcola preventivo</button>
-                        </div>
-                        <div class="col-12 col-lg-6 d-flex flex-column justify-content-center align-items-center">
-                            <div class="fw-bold fs-5">Prezzo finale</div>
-                            <div class="finalPrice fs-5"><span class="fw-bold fs-5">€</span><span id="price"
-                                    class="fw-bold fs-5">100</span>,00</div>
+                            <!-- Tipo di lavoro -->
+                            <label for="lavoro">Tipo di lavoro</label>
+                            <select class="form-select mb-3" id="lavoro">
+                                <option selected>Seleziona il tipo di lavoro</option>
+                                <option value="backend">Backed Development</option>
+                                <option value="frontend">Frontend
+                                    Development</option>
+                                <option value="analysis">Project Analysis</option>
+                            </select>
+
+                            <!-- Textarea -->
+                            <label for="textArea">Textarea con Bootstrap 5</label>
+                            <textarea class="form-control mb-3" id="textArea"></textarea>
+
+                            <!-- Codice promozionale -->
+                            <label for="codicePromozionale">Codice Promozionale (opzionale)</label>
+                            <input class="form-control mb-3" type="text" id="codicePromozionale">
+
+                            <!-- Privacy checkbox -->
+                            <input class="form-check-input mb-5" type="checkbox" value="" id="privacyCheck">
+                            <label class="form-check-label" for="privacyCheck">
+                                Accetto la Privacy Policy
+                            </label>
+
+                            <!-- Submit -->
+                            <div class="row mb-3">
+                                <div class="col-12 col-lg-6 mb-3 d-flex justify-content-center align-items-center">
+                                    <button class="btn btn-primary" type="submit">Calcola preventivo</button>
+                                </div>
+                                <div
+                                    class="col-12 col-lg-6 d-flex flex-column justify-content-center align-items-center">
+                                    <div class="fw-bold fs-5">Prezzo finale</div>
+                                    <div class="finalPrice fs-5"><span class="fw-bold fs-5">€</span><span id="price"
+                                            class="fw-bold fs-5">100</span>,00</div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="col-12 col-lg-4 d-flex justify-content-center align-items-start">
+                        <div class="card">
+                            <div class="img fs-1">300x200</div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <div class="fw-bold">I nostri contatti</div>
+                                    <div>Se hai bisogno di aiuto puoi contattarci:</div>
+                                </li>
+                                <li class="list-group-item">help@boolfactory.test</li>
+                                <li class="list-group-item">+1122334455</li>
+                                <li class="list-group-item"><a href="#">Help desk</a></li>
+                            </ul>
                         </div>
                     </div>
-                </form>
+                </div>
+
             </section>
         </div>
     </main>
