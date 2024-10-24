@@ -11,3 +11,12 @@
     border-top-right-radius: inherit;
     color: white;
 }
+
+.errors-container{
+    border: 1px solid;
+	margin: 10px auto;
+	padding: 5px 5px;
+    color: #D8000C;
+	background-color: #FFBABA;
+    border-radius: 10px;
+}

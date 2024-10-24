@@ -16,41 +16,115 @@ Il risultato del calcolo del prezzo finale deve essere visualizzato in “forma 
 decimali e il simbolo dell’euro). */
 
 const form = document.querySelector("form");
+const nameForm = document.getElementById("inputNome");
+const cognomeForm = document.getElementById("inputCognome");
 const job = document.getElementById("lavoro");
 const codiciSconto = ["YHDNU32", "JANJC63", "PWKCN25", "SJDPO96", "POCIE24"];
 const codiciScontoLength = codiciSconto.length;
 const codiceInput = document.getElementById("codicePromozionale");
+const errorMsg = document.querySelector(".errorMessages");
+
+//const prova = prompt("Inserisci un nome");
+//console.log( validateName(prova));
 
 //Event Submit
-form.addEventListener( "submit", function(event){
-    
-    event.preventDefault();
+form.addEventListener("submit", function (event) {
+      //Reset error message
+      errorMsg.innerHTML = "";
+      document.querySelector(".errors-container").classList.add("d-none");
 
-    let tariffaOraria;
+      event.preventDefault();
+      console.log( document.getElementById("privacyCheck").value);
 
-    if( job.value === "backend" )
-        tariffaOraria = 20.50;
+   if ( validateName(nameForm.value) && validateName(cognomeForm.value) && validateSelect( job.value )) {
+      let tariffaOraria;
 
-     else if( job.value === "frontend" )
-        tariffaOraria = 15.30;
+      if (job.value === "backend")
+         tariffaOraria = 20.50;
 
-     else tariffaOraria = 33.6;
+      else if (job.value === "frontend")
+         tariffaOraria = 15.30;
 
-     let discount = false;
+      else if (job.value === "analysis") tariffaOraria = 33.6;
 
-     for( let i=0; i < codiciScontoLength; i++){
+      let discount = false;
 
-        if( codiciSconto[i] === codiceInput.value )
+      for (let i = 0; i < codiciScontoLength; i++) {
+
+         if (codiciSconto[i] === codiceInput.value)
             discount = true;
 
-     }
+      }
 
-     let price = tariffaOraria * 10;
-     
-     if(discount)
-        price *= 1 - 0.25;
+      let price = tariffaOraria * 10;
+
+      if (discount)
+         price *= (1 - 0.25);
 
 
-     document.getElementById("price").innerText = price.toFixed(2);
+      document.getElementById("price").innerText = price.toFixed(2);
+      
+      //Troncare la stringa price e stamparla con i decimali in grigio
+   }
 
-})
+   else {
+      //Da rivedere
+      if( validateName(nameForm.value) === false ){
+         const firstNameError = document.createElement("li");
+         firstNameError.innerText = "Nome non valido";
+         document.querySelector(".errorMessages").appendChild(firstNameError);
+
+      }
+      if( validateName(cognomeForm.value) === false){
+         const lastNameError = document.createElement("li");
+         lastNameError.innerText = "Cognome non valido";
+         document.querySelector(".errorMessages").appendChild(lastNameError);
+      }
+      if( validateSelect( job.value ) === false){
+         const jobError = document.createElement("li");
+         jobError.innerText = "Inserisci tipo di lavoro";
+         document.querySelector(".errorMessages").appendChild(jobError);
+      }
+
+      document.querySelector(".errors-container").classList.remove("d-none");
+   }
+
+});
+
+
+//FUNCTIONS
+function validateName(name) {
+
+   let isValid = true;
+
+   if (name === "") {
+      isValid = false;
+      return isValid;
+   }
+
+   for (let i = 0; i < name.length; i++) {
+
+      if (!isNaN(Number(name[i]))) {
+         isValid = false;
+         return isValid;
+      }
+   }
+
+   return isValid;
+}
+
+function validateSelect ( selectValue ){
+   let isValid = true;
+
+   if( selectValue === "backend" || selectValue === "frontend" || selectValue === "analysis" )
+   {
+      return isValid;
+   }
+   else{
+      isValid=false;
+      return isValid;
+   }
+
+}
+
+//function isChecked ()
