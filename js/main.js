@@ -17,12 +17,16 @@ decimali e il simbolo dell’euro). */
 
 const form = document.querySelector("form");
 const job = document.getElementById("lavoro");
+const codiciSconto = ["YHDNU32", "JANJC63", "PWKCN25", "SJDPO96", "POCIE24"];
+const codiciScontoLength = codiciSconto.length;
+const codiceInput = document.getElementById("codicePromozionale");
 
+//Event Submit
 form.addEventListener( "submit", function(event){
     
     event.preventDefault();
 
-    let tariffaOraria = 0;
+    let tariffaOraria;
 
     if( job.value === "backend" )
         tariffaOraria = 20.50;
@@ -32,9 +36,21 @@ form.addEventListener( "submit", function(event){
 
      else tariffaOraria = 33.6;
 
-     console.log(tariffaOraria);
+     let discount = false;
 
-     const price = tariffaOraria * 10;
+     for( let i=0; i < codiciScontoLength; i++){
 
-     document.getElementById("price").innerText = price;
+        if( codiciSconto[i] === codiceInput.value )
+            discount = true;
+
+     }
+
+     let price = tariffaOraria * 10;
+     
+     if(discount)
+        price *= 1 - 0.25;
+
+
+     document.getElementById("price").innerText = price.toFixed(2);
+
 })
