@@ -19,6 +19,7 @@ const form = document.querySelector("form");
 const nameForm = document.getElementById("inputNome");
 const cognomeForm = document.getElementById("inputCognome");
 const job = document.getElementById("lavoro");
+const email = document.getElementById("inputEmail");
 const codiciSconto = ["YHDNU32", "JANJC63", "PWKCN25", "SJDPO96", "POCIE24"];
 const codiciScontoLength = codiciSconto.length;
 const codiceInput = document.getElementById("codicePromozionale");
@@ -32,7 +33,7 @@ form.addEventListener("submit", function (event) {
 
    event.preventDefault();
 
-   if (validateName(nameForm.value) && validateName(cognomeForm.value) && validateSelect(job.value)) {
+   if (validateName(nameForm.value) && validateName(cognomeForm.value) && validateSelect(job.value) && validateEmail( email.value)) {
       let tariffaOraria;
 
       if (job.value === "backend")
@@ -64,7 +65,7 @@ form.addEventListener("submit", function (event) {
    }
 
    else {
-      printError(validateName(nameForm.value), validateName(cognomeForm.value), validateSelect(job.value));
+      printError(validateName(nameForm.value), validateName(cognomeForm.value), validateSelect(job.value), validateEmail(email.value));
    }
 
 });
@@ -120,6 +121,14 @@ function validateSelect(selectValue) {
 
 }
 
+function validateEmail ( email ){
+   
+   if(email.match(/^[A-Za-z\._\-0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/))
+      return true;
+   else return false;
+
+}
+
 
 /**
  * Genera messaggi in caso di errata compilazione form
@@ -127,7 +136,7 @@ function validateSelect(selectValue) {
  * @param {boolean} lastNameValid
  * @param {boolean} jobValid
  */
-function printError(firstNameValid, lastNameValid, jobValid) {
+function printError(firstNameValid, lastNameValid, jobValid, emailValid) {
 
    const arrayError = [];
 
@@ -137,6 +146,8 @@ function printError(firstNameValid, lastNameValid, jobValid) {
       arrayError.push("Cognome non valido");
    if (!jobValid)
       arrayError.push("Inserisci tipo di lavoro");
+   if(!emailValid)
+      arrayError.push("Email non valida");
 
    if (arrayError.length > 0) {
       //Create error container
@@ -156,7 +167,7 @@ function printError(firstNameValid, lastNameValid, jobValid) {
       errorMessageContainer.appendChild(listError);
       listError.classList.add("my-0");
 
-
+      //Per ogni errore aggiunge un elemento della lista
       for (let i = 0; i < arrayError.length; i++) {
          listError.innerHTML += "<li>" + arrayError[i] + "</li>";
       }
