@@ -83,12 +83,31 @@ function validateName(name) {
 
    let isValid = true;
 
-   //Creo una stringa senza spazi, non sostituisce name
+   //Creo una stringa senza spazi a partire da name, ma essa non sostituisce name
    const nameWithoutSpace = name.replaceAll(" ", "");
 
+   //Per prima cosa verifico che la stringa non sia vuota
    if (nameWithoutSpace === "") {
       isValid = false;
       return isValid;
+   }
+
+   //Poi verifico che non ci siano spazi consecutivi
+   for(let i = 0 ; i < name.length; i++){
+      let j = i + 1;
+
+      if( name[i] === " " && j < name.length ){
+
+         if( name[j] === " " )
+         {  
+            isValid = false;
+            return isValid;
+         }
+      
+      //Se non ci sono spazi consecutivi non eseguo nulla
+      }
+
+
    }
 
    //Verifico che la stringa senza spazi non abbia numeri
@@ -100,7 +119,8 @@ function validateName(name) {
          return isValid;
       }
    }
-
+   
+   //Se tutti i test sono superati restituisco isValid, che in questo caso sarà true
    return isValid;
 }
 
@@ -179,7 +199,10 @@ function printError(firstNameValid, lastNameValid, jobValid, emailValid) {
          listError.innerHTML += "<li>" + arrayError[i] + "</li>";
       }
 
-
+      //Scroll the element with id="content" into the visible area of the browser window  
+      //false -> bottom of the visible area
+      //Da rivedere!!!
+      document.querySelector(".error-container").scrollIntoView(false);
    }
 
 }
