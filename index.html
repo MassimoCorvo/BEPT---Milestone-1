@@ -54,57 +54,60 @@
                     <p>Compila il form per richiedere un preventivo per i nostri servizi di sviluppo.</p>
 
                     <!-- Form -->
-                    <form>
-                        <!-- Nome -->
-                        <label for="inputNome">Nome</label>
-                        <input class="form-control mb-3" type="text" id="inputNome">
+                    <div class="form-container">
+                        <form id="formId">
+                            <!-- Nome -->
+                            <label for="inputNome">Nome</label>
+                            <input class="form-control mb-3" type="text" id="inputNome">
 
-                        <!-- Cognome -->
-                        <label for="inputCognome">Cognome</label>
-                        <input class="form-control mb-3" type="text" id="inputCognome">
+                            <!-- Cognome -->
+                            <label for="inputCognome">Cognome</label>
+                            <input class="form-control mb-3" type="text" id="inputCognome">
 
-                        <!-- Email -->
-                        <label for="inputEmail">Email</label>
-                        <input class="form-control mb-3" type="text" id="inputEmail">
+                            <!-- Email -->
+                            <label for="inputEmail">Email</label>
+                            <input class="form-control mb-3" type="text" id="inputEmail">
 
-                        <!-- Tipo di lavoro -->
-                        <label for="lavoro">Tipo di lavoro</label>
-                        <select class="form-select mb-3" id="lavoro">
-                            <option value="">Seleziona il tipo di lavoro</option>
-                            <option value="backend">Backed Development</option>
-                            <option value="frontend">Frontend
-                                Development</option>
-                            <option value="analysis">Project Analysis</option>
-                        </select>
+                            <!-- Tipo di lavoro -->
+                            <label for="lavoro">Tipo di lavoro</label>
+                            <select class="form-select mb-3" id="lavoro">
+                                <option value="">Seleziona il tipo di lavoro</option>
+                                <option value="backend">Backed Development</option>
+                                <option value="frontend">Frontend
+                                    Development</option>
+                                <option value="analysis">Project Analysis</option>
+                            </select>
 
-                        <!-- Textarea -->
-                        <label for="textArea">Textarea con Bootstrap 5</label>
-                        <textarea class="form-control mb-3" id="textArea"></textarea>
+                            <!-- Textarea -->
+                            <label for="textArea">Textarea con Bootstrap 5</label>
+                            <textarea class="form-control mb-3" id="textArea"></textarea>
 
-                        <!-- Codice promozionale -->
-                        <label for="codicePromozionale">Codice Promozionale (opzionale)</label>
-                        <input class="form-control mb-3" type="text" id="codicePromozionale">
+                            <!-- Codice promozionale -->
+                            <label for="codicePromozionale">Codice Promozionale (opzionale)</label>
+                            <input class="form-control mb-3" type="text" id="codicePromozionale">
 
-                        <!-- Privacy checkbox -->
-                        <input class="form-check-input mb-3" type="checkbox" value="" id="privacyCheck" required>
-                        <label class="form-check-label" for="privacyCheck">
-                            Accetto la Privacy Policy
-                        </label>
+                            <!-- Privacy checkbox -->
+                            <input class="form-check-input mb-3" type="checkbox" value="" id="privacyCheck" required>
+                            <label class="form-check-label" for="privacyCheck">
+                                Accetto la Privacy Policy
+                            </label>
 
-                        <!-- Error messages here -->
+                            <!-- Error messages here -->
 
-                        <!-- Submit -->
-                        <div class="row mb-3" id="calcolo">
-                            <div class="col-12 col-lg-6 mb-3 d-flex justify-content-center align-items-center">
-                                <button class="btn btn-primary" type="submit">Calcola preventivo</button>
+                            <!-- Submit -->
+                            <div class="row mb-3">
+                                <div class="col-12 col-lg-6 mb-3 d-flex justify-content-center align-items-center">
+                                    <button class="btn btn-primary" type="submit">Calcola preventivo</button>
+                                </div>
+                                <div
+                                    class="col-12 col-lg-6 d-flex flex-column justify-content-center align-items-center">
+                                    <div class="fw-bold fs-5">Prezzo finale</div>
+                                    <div class="finalPrice fs-5"><span class="fw-bold fs-5">€</span><span id="price"
+                                            class="fw-bold fs-5">0</span></div>
+                                </div>
                             </div>
-                            <div class="col-12 col-lg-6 d-flex flex-column justify-content-center align-items-center">
-                                <div class="fw-bold fs-5">Prezzo finale</div>
-                                <div class="finalPrice fs-5"><span class="fw-bold fs-5">€</span><span id="price"
-                                        class="fw-bold fs-5">0</span></div>
-                            </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
 
                 <div class="col-12 col-lg-4 d-flex justify-content-center align-items-start">

@@ -23,6 +23,7 @@ const email = document.getElementById("inputEmail");
 const codiciSconto = ["YHDNU32", "JANJC63", "PWKCN25", "SJDPO96", "POCIE24"];
 const codiciScontoLength = codiciSconto.length;
 const codiceInput = document.getElementById("codicePromozionale");
+const formContainer = document.querySelector(".form-container");
 const errorMsg = document.querySelector(".errorMessages");
 let errorMessageContainer;
 
@@ -180,8 +181,8 @@ function printError(firstNameValid, lastNameValid, jobValid, emailValid) {
       //Create error container
       errorMessageContainer = document.createElement("div");
       errorMessageContainer.classList.add("error-container", "d-flex", "align-items-center");
-      const before = document.getElementById("calcolo");
-      document.querySelector("form").insertBefore(errorMessageContainer, before);
+      const before = document.getElementById("formId");
+      formContainer.insertBefore(errorMessageContainer, before);
 
       //Create icon
       const iconError = document.createElement("span");
