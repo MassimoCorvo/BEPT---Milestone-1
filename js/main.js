@@ -27,12 +27,12 @@ let errorMessageContainer;
 
 //Event Submit
 form.addEventListener("submit", function (event) {
-      //Reset error message
-      resetError();
+   //Reset error message
+   resetError();
 
-      event.preventDefault();
+   event.preventDefault();
 
-   if ( validateName(nameForm.value) && validateName(cognomeForm.value) && validateSelect( job.value )) {
+   if (validateName(nameForm.value) && validateName(cognomeForm.value) && validateSelect(job.value)) {
       let tariffaOraria;
 
       if (job.value === "backend")
@@ -59,12 +59,12 @@ form.addEventListener("submit", function (event) {
 
 
       document.getElementById("price").innerText = price.toFixed(2);
-      
+
       //Troncare la stringa price e stamparla con i decimali in grigio
    }
 
    else {
-      printError( validateName(nameForm.value), validateName(cognomeForm.value), validateSelect( job.value ) );
+      printError(validateName(nameForm.value), validateName(cognomeForm.value), validateSelect(job.value));
    }
 
 });
@@ -81,14 +81,18 @@ function validateName(name) {
 
    let isValid = true;
 
-   if (name === "") {
+   //Creo una stringa senza spazi, non sostituisce name
+   const nameWithoutSpace = name.replaceAll(" ", "");
+
+   if (nameWithoutSpace === "") {
       isValid = false;
       return isValid;
    }
 
-   for (let i = 0; i < name.length; i++) {
+   //Verifico che la stringa senza spazi non abbia numeri
+   for (let i = 0; i < nameWithoutSpace.length; i++) {
 
-      if (!isNaN(Number(name[i]))) {
+      if (!isNaN(Number(nameWithoutSpace[i]))) {
          isValid = false;
          return isValid;
       }
@@ -103,15 +107,14 @@ function validateName(name) {
  * @param {string} selectValue
  * @returns {boolean}
  */
-function validateSelect ( selectValue ){
+function validateSelect(selectValue) {
    let isValid = true;
 
-   if( selectValue === "backend" || selectValue === "frontend" || selectValue === "analysis" )
-   {
+   if (selectValue === "backend" || selectValue === "frontend" || selectValue === "analysis") {
       return isValid;
    }
-   else{
-      isValid=false;
+   else {
+      isValid = false;
       return isValid;
    }
 
@@ -124,24 +127,23 @@ function validateSelect ( selectValue ){
  * @param {boolean} lastNameValid
  * @param {boolean} jobValid
  */
-function printError( firstNameValid, lastNameValid, jobValid ){
+function printError(firstNameValid, lastNameValid, jobValid) {
 
    const arrayError = [];
 
-   if( !firstNameValid )
-      arrayError.push( "Nome non valido" );
-   if( !lastNameValid )
-      arrayError.push( "Cognome non valido" );
-   if( !jobValid )
-      arrayError.push( "Inserisci tipo di lavoro" );
+   if (!firstNameValid)
+      arrayError.push("Nome non valido");
+   if (!lastNameValid)
+      arrayError.push("Cognome non valido");
+   if (!jobValid)
+      arrayError.push("Inserisci tipo di lavoro");
 
-   if( arrayError.length > 0 )
-   {  
+   if (arrayError.length > 0) {
       //Create error container
       errorMessageContainer = document.createElement("div");
-      errorMessageContainer.classList.add("error-container", "d-flex", "align-items-center" );
+      errorMessageContainer.classList.add("error-container", "d-flex", "align-items-center");
       const before = document.getElementById("calcolo");
-      document.querySelector("form").insertBefore( errorMessageContainer, before);
+      document.querySelector("form").insertBefore(errorMessageContainer, before);
 
       //Create icon
       const iconError = document.createElement("span");
@@ -155,12 +157,11 @@ function printError( firstNameValid, lastNameValid, jobValid ){
       listError.classList.add("my-0");
 
 
-      for(let i = 0; i < arrayError.length; i++)
-      {
+      for (let i = 0; i < arrayError.length; i++) {
          listError.innerHTML += "<li>" + arrayError[i] + "</li>";
       }
 
-      
+
    }
 
 }
@@ -170,10 +171,8 @@ function printError( firstNameValid, lastNameValid, jobValid ){
  */
 function resetError() {
 
-   if( errorMessageContainer !== null && errorMessageContainer !== undefined )
-   {
-    errorMessageContainer.remove();
-    console.log(errorMessageContainer);
+   if (errorMessageContainer !== null && errorMessageContainer !== undefined) {
+      errorMessageContainer.remove();
    }
 
 }
