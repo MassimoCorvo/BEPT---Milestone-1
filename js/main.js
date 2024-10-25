@@ -27,7 +27,6 @@ const formContainer = document.querySelector(".form-container");
 const errorMsg = document.querySelector(".errorMessages");
 let errorMessageContainer;
 
-console.log(isNaN(0));
 //Event Submit
 form.addEventListener("submit", function (event) {
    //Reset error message
@@ -46,20 +45,9 @@ form.addEventListener("submit", function (event) {
 
       else if (job.value === "analysis") tariffaOraria = 33.6;
 
-      let discount = false;
-
-      for (let i = 0; i < codiciScontoLength; i++) {
-
-         if (codiciSconto[i] === codiceInput.value)
-            discount = true;
-
-      }
-
-      let price = tariffaOraria * 10;
-
-      if (discount)
-         price *= (1 - 0.25);
-
+      let discount = checkDiscount( codiceInput.value );
+      
+      let price = tariffaOraria * 10 * (1-discount);
 
       document.getElementById("price").innerText = price.toFixed(2);
 
@@ -84,7 +72,7 @@ function validateName(name) {
 
    let isValid = true;
 
-   //Creo una stringa senza spazi a partire da name, ma essa non sostituisce name
+   //Creo una stringa senza spazi a partire da name (essa non sostituisce name)
    const nameWithoutSpace = name.replaceAll(" ", "");
 
    //Per prima cosa verifico che la stringa non sia vuota
@@ -201,7 +189,7 @@ function printError(firstNameValid, lastNameValid, jobValid, emailValid) {
       }
 
       //Scroll the element with id="content" into the visible area of the browser window  
-      //false -> bottom of the visible area
+      //false -> bottom of the visible area  true-> top  default = top
       //Da rivedere!!!
       document.querySelector(".error-container").scrollIntoView(false);
    }
@@ -216,5 +204,55 @@ function resetError() {
    if (errorMessageContainer !== null && errorMessageContainer !== undefined) {
       errorMessageContainer.remove();
    }
+
+}
+
+
+/**
+ * Calcola lo sconto e verifica se sia stato inserito uno sconto non valido
+ * @param {string} codiceSconto
+ * @returns {number}
+ */
+function checkDiscount( codiceSconto ) {
+   //const codiceNoSpazi = codiceSconto.replaceAll(" ","");
+   let discount = 0;
+
+   //Verifico che il campo non sia vuoto
+   if( codiceSconto !== null && codiceSconto !== undefined && codiceSconto !== "")
+{
+      let discountValid = false;
+      for (let i = 0; i < codiciScontoLength; i++) {
+
+         if (codiciSconto[i] === codiceSconto)
+            {
+            
+            discount = 0.25;
+            console.log(discount);
+            discountValid = true;
+            
+         }
+     
+      }
+
+      if( !discountValid )
+      {
+         console.log("codisce sconto non valido");
+         printDiscountNotValid();
+      }
+
+   }
+
+   return discount;
+   
+
+}
+
+
+/**
+ * Stampa su schermo un messaggio nel caso che il codice sconto inserito non sia valido
+ */
+function printDiscountNotValid(){
+
+   alert("Codice sconto non valido, non verranno applicati sconti.");
 
 }
