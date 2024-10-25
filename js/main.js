@@ -227,7 +227,6 @@ function checkDiscount( codiceSconto ) {
             {
             
             discount = 0.25;
-            console.log(discount);
             discountValid = true;
             
          }
@@ -236,7 +235,6 @@ function checkDiscount( codiceSconto ) {
 
       if( !discountValid )
       {
-         console.log("codisce sconto non valido");
          printDiscountNotValid();
       }
 
