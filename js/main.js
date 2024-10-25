@@ -72,6 +72,10 @@ function validateName(name) {
 
    let isValid = true;
 
+   //Verifico che sia lunga almeno due caratteri
+   if( name.length < 2 )
+      return false;
+
    //Creo una stringa senza spazi a partire da name (essa non sostituisce name)
    const nameWithoutSpace = name.replaceAll(" ", "");
 
