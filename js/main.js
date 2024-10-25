@@ -23,15 +23,14 @@ const codiciSconto = ["YHDNU32", "JANJC63", "PWKCN25", "SJDPO96", "POCIE24"];
 const codiciScontoLength = codiciSconto.length;
 const codiceInput = document.getElementById("codicePromozionale");
 const errorMsg = document.querySelector(".errorMessages");
+let errorMessageContainer;
 
 //Event Submit
 form.addEventListener("submit", function (event) {
       //Reset error message
-      errorMsg.innerHTML = "";
-      document.querySelector(".errors-container").classList.add("d-none");
+      resetError();
 
       event.preventDefault();
-      console.log( document.getElementById("privacyCheck").value);
 
    if ( validateName(nameForm.value) && validateName(cognomeForm.value) && validateSelect( job.value )) {
       let tariffaOraria;
@@ -65,25 +64,7 @@ form.addEventListener("submit", function (event) {
    }
 
    else {
-      //Da rivedere
-      if( validateName(nameForm.value) === false ){
-         const firstNameError = document.createElement("li");
-         firstNameError.innerText = "Nome non valido";
-         document.querySelector(".errorMessages").appendChild(firstNameError);
-
-      }
-      if( validateName(cognomeForm.value) === false){
-         const lastNameError = document.createElement("li");
-         lastNameError.innerText = "Cognome non valido";
-         document.querySelector(".errorMessages").appendChild(lastNameError);
-      }
-      if( validateSelect( job.value ) === false){
-         const jobError = document.createElement("li");
-         jobError.innerText = "Inserisci tipo di lavoro";
-         document.querySelector(".errorMessages").appendChild(jobError);
-      }
-
-      document.querySelector(".errors-container").classList.remove("d-none");
+      printError( validateName(nameForm.value), validateName(cognomeForm.value), validateSelect( job.value ) );
    }
 
 });
@@ -136,4 +117,63 @@ function validateSelect ( selectValue ){
 
 }
 
-//function isChecked ()
+
+/**
+ * Genera messaggi in caso di errata compilazione form
+ * @param {boolean} firstNameValid
+ * @param {boolean} lastNameValid
+ * @param {boolean} jobValid
+ */
+function printError( firstNameValid, lastNameValid, jobValid ){
+
+   const arrayError = [];
+
+   if( !firstNameValid )
+      arrayError.push( "Nome non valido" );
+   if( !lastNameValid )
+      arrayError.push( "Cognome non valido" );
+   if( !jobValid )
+      arrayError.push( "Inserisci tipo di lavoro" );
+
+   if( arrayError.length > 0 )
+   {  
+      //Create error container
+      errorMessageContainer = document.createElement("div");
+      errorMessageContainer.classList.add("error-container", "d-flex", "align-items-center" );
+      const before = document.getElementById("calcolo");
+      document.querySelector("form").insertBefore( errorMessageContainer, before);
+
+      //Create icon
+      const iconError = document.createElement("span");
+      iconError.classList.add("fs-2");
+      iconError.innerHTML = "&#9888;";
+      errorMessageContainer.appendChild(iconError);
+
+      //Errors list
+      const listError = document.createElement("ul");
+      errorMessageContainer.appendChild(listError);
+      listError.classList.add("my-0");
+
+
+      for(let i = 0; i < arrayError.length; i++)
+      {
+         listError.innerHTML += "<li>" + arrayError[i] + "</li>";
+      }
+
+      
+   }
+
+}
+
+/**
+ * Elimina il messaggio di errore, nel caso sia presente
+ */
+function resetError() {
+
+   if( errorMessageContainer !== null && errorMessageContainer !== undefined )
+   {
+    errorMessageContainer.remove();
+    console.log(errorMessageContainer);
+   }
+
+}
