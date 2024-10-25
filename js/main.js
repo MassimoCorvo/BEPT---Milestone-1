@@ -26,6 +26,7 @@ const codiceInput = document.getElementById("codicePromozionale");
 const errorMsg = document.querySelector(".errorMessages");
 let errorMessageContainer;
 
+console.log(isNaN(0));
 //Event Submit
 form.addEventListener("submit", function (event) {
    //Reset error message
@@ -93,7 +94,8 @@ function validateName(name) {
    //Verifico che la stringa senza spazi non abbia numeri
    for (let i = 0; i < nameWithoutSpace.length; i++) {
 
-      if (!isNaN(Number(nameWithoutSpace[i]))) {
+      //Number: an empty string (like "") converts to 0
+      if ( isNaN(Number(nameWithoutSpace[i])) === false ) {
          isValid = false;
          return isValid;
       }
@@ -120,7 +122,12 @@ function validateSelect(selectValue) {
    }
 
 }
-
+ 
+/**
+ * Verifica se l'email è valida
+ * @param {string} email
+ * @returns {boolean}
+ */
 function validateEmail ( email ){
    
    if(email.match(/^[A-Za-z\._\-0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/))
