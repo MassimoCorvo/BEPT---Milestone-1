@@ -85,6 +85,10 @@ function validateName(name) {
       return isValid;
    }
 
+   //Verifico che non ci siano spazi all'inizio o alla fine
+   if( name[0] || name[name.length - 1])
+      return false;
+
    //Poi verifico che non ci siano spazi consecutivi
    for(let i = 0 ; i < name.length; i++){
       let j = i + 1;
@@ -99,7 +103,6 @@ function validateName(name) {
       
       //Se non ci sono spazi consecutivi non eseguo nulla
       }
-
 
    }
 
