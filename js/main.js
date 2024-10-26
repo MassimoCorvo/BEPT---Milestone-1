@@ -32,9 +32,12 @@ form.addEventListener("submit", function (event) {
    //Reset error message
    resetError();
 
+   //Reset price
+   resetPrice();
+
    event.preventDefault();
 
-   if (validateName(nameForm.value) && validateName(cognomeForm.value) && validateSelect(job.value) && validateEmail( email.value)) {
+   if (validateName(nameForm.value) && validateName(cognomeForm.value) && validateSelect(job.value) && validateEmail(email.value)) {
       let tariffaOraria;
 
       if (job.value === "backend")
@@ -45,11 +48,13 @@ form.addEventListener("submit", function (event) {
 
       else if (job.value === "analysis") tariffaOraria = 33.6;
 
-      let discount = checkDiscount( codiceInput.value );
-      
-      let price = tariffaOraria * 10 * (1-discount);
+      let discount = checkDiscount(codiceInput.value);
 
-      document.getElementById("price").innerText = price.toFixed(2);
+      let price = tariffaOraria * 10 * (1 - discount);
+
+      //document.getElementById("price").innerText = price.toFixed(2);
+
+      printPrice(price);
 
       //Troncare la stringa price e stamparla con i decimali in grigio
    }
@@ -73,7 +78,7 @@ function validateName(name) {
    let isValid = true;
 
    //Verifico che sia lunga almeno due caratteri
-   if( name.length < 2 )
+   if (name.length < 2)
       return false;
 
    //Creo una stringa senza spazi a partire da name (essa non sostituisce name)
@@ -86,22 +91,21 @@ function validateName(name) {
    }
 
    //Verifico che non ci siano spazi all'inizio o alla fine
-   if( name[0] === " " || name[name.length - 1] === " ")
+   if (name[0] === " " || name[name.length - 1] === " ")
       return false;
 
    //Poi verifico che non ci siano spazi consecutivi
-   for(let i = 0 ; i < name.length; i++){
+   for (let i = 0; i < name.length; i++) {
       let j = i + 1;
 
-      if( name[i] === " " && j < name.length ){
+      if (name[i] === " " && j < name.length) {
 
-         if( name[j] === " " )
-         {  
+         if (name[j] === " ") {
             isValid = false;
             return isValid;
          }
-      
-      //Se non ci sono spazi consecutivi non eseguo nulla
+
+         //Se non ci sono spazi consecutivi non eseguo nulla
       }
 
    }
@@ -110,12 +114,12 @@ function validateName(name) {
    for (let i = 0; i < nameWithoutSpace.length; i++) {
 
       //Number: an empty string (like "") converts to 0
-      if ( isNaN(Number(nameWithoutSpace[i])) === false ) {
+      if (isNaN(Number(nameWithoutSpace[i])) === false) {
          isValid = false;
          return isValid;
       }
    }
-   
+
    //Se tutti i test sono superati restituisco isValid, che in questo caso sarà true
    return isValid;
 }
@@ -138,15 +142,15 @@ function validateSelect(selectValue) {
    }
 
 }
- 
+
 /**
  * Verifica se l'email è valida
  * @param {string} email
  * @returns {boolean}
  */
-function validateEmail ( email ){
-   
-   if(email.match(/^[A-Za-z\._\-0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/))
+function validateEmail(email) {
+
+   if (email.match(/^[A-Za-z\._\-0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/))
       return true;
    else return false;
 
@@ -169,7 +173,7 @@ function printError(firstNameValid, lastNameValid, jobValid, emailValid) {
       arrayError.push("Cognome non valido");
    if (!jobValid)
       arrayError.push("Inserisci tipo di lavoro");
-   if(!emailValid)
+   if (!emailValid)
       arrayError.push("Email non valida");
 
    if (arrayError.length > 0) {
@@ -220,35 +224,32 @@ function resetError() {
  * @param {string} codiceSconto
  * @returns {number}
  */
-function checkDiscount( codiceSconto ) {
+function checkDiscount(codiceSconto) {
    //const codiceNoSpazi = codiceSconto.replaceAll(" ","");
    let discount = 0;
 
    //Verifico che il campo non sia vuoto
-   if( codiceSconto !== null && codiceSconto !== undefined && codiceSconto !== "")
-{
+   if (codiceSconto !== null && codiceSconto !== undefined && codiceSconto !== "") {
       let discountValid = false;
       for (let i = 0; i < codiciScontoLength; i++) {
 
-         if (codiciSconto[i] === codiceSconto)
-            {
-            
+         if (codiciSconto[i] === codiceSconto) {
+
             discount = 0.25;
             discountValid = true;
-            
+
          }
-     
+
       }
 
-      if( !discountValid )
-      {
+      if (!discountValid) {
          printDiscountNotValid();
       }
 
    }
 
    return discount;
-   
+
 
 }
 
@@ -256,8 +257,47 @@ function checkDiscount( codiceSconto ) {
 /**
  * Stampa su schermo un messaggio nel caso che il codice sconto inserito non sia valido
  */
-function printDiscountNotValid(){
+function printDiscountNotValid() {
 
    alert("Codice sconto non valido, non verranno applicati sconti.");
+
+}
+
+function printPrice(price) {
+
+   //Divido la parte intera da i decimali
+
+   let parteIntera = "";
+   let decimali = "";
+   const priceString = price.toFixed(2);
+
+   let dotFound = false;
+   for (let i = 0; i < priceString.length; i++) {
+
+      if (priceString[i] !== "." && !dotFound) {
+         parteIntera += priceString[i];
+      }
+      else if (priceString[i] === ".")
+         dotFound = true;
+      else {
+
+         decimali += priceString[i];
+
+      }
+
+   }
+
+   console.log(price);
+   console.log(parteIntera, decimali);
+
+   document.getElementById("parte-intera").innerText = parteIntera;
+   document.getElementById("decimali").innerText = "," + decimali;
+
+}
+
+function resetPrice() {
+
+   document.getElementById("parte-intera").innerText = "0";
+   document.getElementById("decimali").innerText = "," + "00";
 
 }
