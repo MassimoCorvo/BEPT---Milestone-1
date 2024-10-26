@@ -86,7 +86,7 @@ function validateName(name) {
    }
 
    //Verifico che non ci siano spazi all'inizio o alla fine
-   if( name[0] || name[name.length - 1])
+   if( name[0] === " " || name[name.length - 1] === " ")
       return false;
 
    //Poi verifico che non ci siano spazi consecutivi
