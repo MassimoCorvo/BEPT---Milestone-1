@@ -52,11 +52,8 @@ form.addEventListener("submit", function (event) {
 
       let price = tariffaOraria * 10 * (1 - discount);
 
-      //document.getElementById("price").innerText = price.toFixed(2);
-
       printPrice(price);
 
-      //Troncare la stringa price e stamparla con i decimali in grigio
    }
 
    else {
@@ -229,7 +226,7 @@ function checkDiscount(codiceSconto) {
    let discount = 0;
 
    //Verifico che il campo non sia vuoto
-   if (codiceSconto !== null && codiceSconto !== undefined && codiceSconto !== "") {
+   if ( codiceSconto !== "" ) {
       let discountValid = false;
       for (let i = 0; i < codiciScontoLength; i++) {
 
@@ -286,9 +283,6 @@ function printPrice(price) {
       }
 
    }
-
-   console.log(price);
-   console.log(parteIntera, decimali);
 
    document.getElementById("parte-intera").innerText = parteIntera;
    document.getElementById("decimali").innerText = "," + decimali;
