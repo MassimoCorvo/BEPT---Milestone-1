@@ -263,12 +263,15 @@ function printDiscountNotValid() {
 function printPrice(price) {
 
    //Divido la parte intera da i decimali
-
-   let parteIntera = "";
-   let decimali = "";
    const priceString = price.toFixed(2);
 
-   let dotFound = false;
+   const arrayPrice = priceString.split(".");
+   console.log(arrayPrice);
+   
+   let parteIntera = arrayPrice[0];
+   let decimali = arrayPrice[1];
+   
+   /*let dotFound = false;
    for (let i = 0; i < priceString.length; i++) {
 
       if (priceString[i] !== "." && !dotFound) {
@@ -282,7 +285,7 @@ function printPrice(price) {
 
       }
 
-   }
+   } */
 
    document.getElementById("parte-intera").innerText = parteIntera;
    document.getElementById("decimali").innerText = "," + decimali;
