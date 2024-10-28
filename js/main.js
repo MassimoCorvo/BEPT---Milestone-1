@@ -26,20 +26,20 @@ const codiceInput = document.getElementById("codicePromozionale");
 const formContainer = document.querySelector(".form-container");
 const errorMsg = document.querySelector(".errorMessages");
 let errorMessageContainer;
+const checkPrivacy = document.getElementById("privacyCheck");
 
 //Event Submit
 form.addEventListener("submit", function (event) {
+
    //Reset error message
    resetError();
-
-   console.log("Dopo resetError");
 
    //Reset price
    resetPrice();
 
    event.preventDefault();
 
-   if (validateName(nameForm.value) && validateName(cognomeForm.value) && validateSelect(job.value) && validateEmail(email.value)) {
+   if (validateName(nameForm.value) && validateName(cognomeForm.value) && validateSelect(job.value) && validateEmail(email.value) && checkPrivacy.checked) {
       let tariffaOraria;
 
       if (job.value === "backend")
@@ -59,7 +59,7 @@ form.addEventListener("submit", function (event) {
    }
 
    else {
-      printError(validateName(nameForm.value), validateName(cognomeForm.value), validateSelect(job.value), validateEmail(email.value));
+      printError(validateName(nameForm.value), validateName(cognomeForm.value), validateSelect(job.value), validateEmail(email.value), privacyChecked.checked);
    }
 
 });
@@ -82,10 +82,9 @@ function validateName(name) {
 
    //Creo una stringa senza spazi a partire da name (essa non sostituisce name)
    const nameWithoutSpace = name.replaceAll(" ", "");
-   
+
    //Stringa senza spazi all'inizio e alla fine
    const nameAfterTrim = name.trim();
-   console.log(nameAfterTrim);
 
    //Per prima cosa verifico che la stringa non sia vuota
    if (nameWithoutSpace === "") {
@@ -94,11 +93,11 @@ function validateName(name) {
    }
 
    //No spazi all'inizio o alla fine
-   if( name !== nameAfterTrim )
+   if (name !== nameAfterTrim)
       return false;
 
    //Poi verifico che non ci siano spazi multipli consecutivi
-   if( name.includes( "  " ) )
+   if (name.includes("  "))
       return false;
 
    /* for (let i = 0; i < name.length; i++) {
@@ -117,7 +116,7 @@ function validateName(name) {
    } */
 
    //Verifico che la stringa senza spazi non abbia numeri
-   if ( nameWithoutSpace.match(/\d+/) )
+   if (nameWithoutSpace.match(/\d+/))
       return false;
 
 
@@ -173,7 +172,7 @@ function validateEmail(email) {
  * @param {boolean} lastNameValid
  * @param {boolean} jobValid
  */
-function printError(firstNameValid, lastNameValid, jobValid, emailValid) {
+function printError(firstNameValid, lastNameValid, jobValid, emailValid, privacyChecked) {
 
    const arrayError = [];
 
@@ -185,6 +184,8 @@ function printError(firstNameValid, lastNameValid, jobValid, emailValid) {
       arrayError.push("Inserisci tipo di lavoro");
    if (!emailValid)
       arrayError.push("Email non valida");
+   if (!privacyChecked)
+      arrayError.push("E' necessario accettare la privacy policy");
 
    if (arrayError.length > 0) {
       //Create error container
@@ -239,7 +240,7 @@ function checkDiscount(codiceSconto) {
    let discount = 0;
 
    //Verifico che il campo non sia vuoto
-   if ( codiceSconto !== "" ) {
+   if (codiceSconto !== "") {
       let discountValid = false;
       for (let i = 0; i < codiciScontoLength; i++) {
 
@@ -254,7 +255,6 @@ function checkDiscount(codiceSconto) {
 
       if (!discountValid) {
          printDiscountNotValid();
-         console.log("dopo discount non valido");
       }
 
    }
@@ -280,11 +280,10 @@ function printPrice(price) {
    const priceString = price.toFixed(2);
 
    const arrayPrice = priceString.split(".");
-   console.log(arrayPrice);
 
    let parteIntera = arrayPrice[0];
    let decimali = arrayPrice[1];
-   
+
    /*let dotFound = false;
    for (let i = 0; i < priceString.length; i++) {
 
@@ -310,5 +309,11 @@ function resetPrice() {
 
    document.getElementById("parte-intera").innerText = "0";
    document.getElementById("decimali").innerText = "," + "00";
+
+}
+
+function privacyChecked() {
+
+
 
 }
