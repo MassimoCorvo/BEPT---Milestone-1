@@ -32,6 +32,8 @@ form.addEventListener("submit", function (event) {
    //Reset error message
    resetError();
 
+   console.log("Dopo resetError");
+
    //Reset price
    resetPrice();
 
@@ -80,6 +82,8 @@ function validateName(name) {
 
    //Creo una stringa senza spazi a partire da name (essa non sostituisce name)
    const nameWithoutSpace = name.replaceAll(" ", "");
+   const nameAfterTrim = name.trim();
+   console.log(nameAfterTrim);
 
    //Per prima cosa verifico che la stringa non sia vuota
    if (nameWithoutSpace === "") {
@@ -87,12 +91,15 @@ function validateName(name) {
       return isValid;
    }
 
-   //Verifico che non ci siano spazi all'inizio o alla fine
-   if (name[0] === " " || name[name.length - 1] === " ")
+   //No spazi all'inizio o alla fine
+   if( name !== nameAfterTrim )
       return false;
 
-   //Poi verifico che non ci siano spazi consecutivi
-   for (let i = 0; i < name.length; i++) {
+   //Poi verifico che non ci siano spazi multipli consecutivi
+   if( name.includes( "  " ) )
+      return false;
+
+   /* for (let i = 0; i < name.length; i++) {
       let j = i + 1;
 
       if (name[i] === " " && j < name.length) {
@@ -105,17 +112,21 @@ function validateName(name) {
          //Se non ci sono spazi consecutivi non eseguo nulla
       }
 
-   }
+   } */
 
    //Verifico che la stringa senza spazi non abbia numeri
-   for (let i = 0; i < nameWithoutSpace.length; i++) {
+   if ( nameWithoutSpace.match(/\d+/) )
+      return false;
+
+
+   /*for (let i = 0; i < nameWithoutSpace.length; i++) {
 
       //Number: an empty string (like "") converts to 0
       if (isNaN(Number(nameWithoutSpace[i])) === false) {
          isValid = false;
          return isValid;
       }
-   }
+   } */
 
    //Se tutti i test sono superati restituisco isValid, che in questo caso sarà true
    return isValid;
@@ -241,6 +252,7 @@ function checkDiscount(codiceSconto) {
 
       if (!discountValid) {
          printDiscountNotValid();
+         console.log("dopo discount non valido");
       }
 
    }
@@ -267,7 +279,7 @@ function printPrice(price) {
 
    const arrayPrice = priceString.split(".");
    console.log(arrayPrice);
-   
+
    let parteIntera = arrayPrice[0];
    let decimali = arrayPrice[1];
    
