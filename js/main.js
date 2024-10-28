@@ -82,6 +82,8 @@ function validateName(name) {
 
    //Creo una stringa senza spazi a partire da name (essa non sostituisce name)
    const nameWithoutSpace = name.replaceAll(" ", "");
+   
+   //Stringa senza spazi all'inizio e alla fine
    const nameAfterTrim = name.trim();
    console.log(nameAfterTrim);
 
