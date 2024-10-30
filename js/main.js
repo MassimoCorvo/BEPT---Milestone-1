@@ -28,6 +28,14 @@ const errorMsg = document.querySelector(".errorMessages");
 let errorMessageContainer;
 const checkPrivacy = document.getElementById("privacyCheck");
 
+//Bonus
+const jobsArray = [{ job: "Backend Development", pricePerHour: 20.50 },
+{ job: "Frontend Development", pricePerHour: 15.30 },
+{ job: "Project Analysis", pricePerHour: 33.60 }, { job: "Prova", pricePerHour: 10 }, { job: "Non deve essere aggiunto", pricePerHour: 0 }, { job: "Deve essere aggiunto", pricePerHour: 15.5 }];
+
+//Crea le opzioni della select
+createSelectOptions();
+
 //Event Submit
 form.addEventListener("submit", function (event) {
 
@@ -42,7 +50,7 @@ form.addEventListener("submit", function (event) {
    if (validateName(nameForm.value) && validateName(cognomeForm.value) && validateSelect(job.value) && validateEmail(email.value) && checkPrivacy.checked) {
       let tariffaOraria;
 
-      if (job.value === "backend")
+      /* if (job.value === "backend")
          tariffaOraria = 20.50;
 
       else if (job.value === "frontend")
@@ -50,8 +58,10 @@ form.addEventListener("submit", function (event) {
 
       else if (job.value === "analysis") tariffaOraria = 33.6;
 
-      let discount = checkDiscount(codiceInput.value);
+       */
 
+      tariffaOraria = calcoloTariffaOraria(job.value);
+      let discount = checkDiscount(codiceInput.value);
       let price = tariffaOraria * 10 * (1 - discount);
 
       printPrice(price);
@@ -100,34 +110,9 @@ function validateName(name) {
    if (name.includes("  "))
       return false;
 
-   /* for (let i = 0; i < name.length; i++) {
-      let j = i + 1;
-
-      if (name[i] === " " && j < name.length) {
-
-         if (name[j] === " ") {
-            isValid = false;
-            return isValid;
-         }
-
-         //Se non ci sono spazi consecutivi non eseguo nulla
-      }
-
-   } */
-
    //Verifico che la stringa senza spazi non abbia numeri
    if (nameWithoutSpace.match(/\d+/))
       return false;
-
-
-   /*for (let i = 0; i < nameWithoutSpace.length; i++) {
-
-      //Number: an empty string (like "") converts to 0
-      if (isNaN(Number(nameWithoutSpace[i])) === false) {
-         isValid = false;
-         return isValid;
-      }
-   } */
 
    //Se tutti i test sono superati restituisco isValid, che in questo caso sarà true
    return isValid;
@@ -142,13 +127,22 @@ function validateName(name) {
 function validateSelect(selectValue) {
    let isValid = true;
 
-   if (selectValue === "backend" || selectValue === "frontend" || selectValue === "analysis") {
+   /* if (selectValue === "backend" || selectValue === "frontend" || selectValue === "analysis") {
       return isValid;
    }
    else {
       isValid = false;
       return isValid;
+   } */
+
+   for (let i = 0; i < jobsArray.length; i++) {
+
+      if (selectValue === jobsArray[i].job)
+         return isValid;
+
    }
+
+   return isValid;
 
 }
 
@@ -312,8 +306,39 @@ function resetPrice() {
 
 }
 
-function privacyChecked() {
+//Bonus
+function createSelectOptions() {
 
+   for (let i = 0; i < jobsArray.length; i++) {
+      //Verifico che il prezzo non sia un falsy value
+      if (jobsArray[i].pricePerHour) {
+         const selectChoice = document.createElement("option");
+         selectChoice.setAttribute("value", jobsArray[i].job);
+         selectChoice.innerHTML = jobsArray[i].job;
+         job.appendChild(selectChoice);
+      }
 
+   }
 
 }
+
+//Bonus
+function calcoloTariffaOraria(valueSelect) {
+
+   let index = 0;
+   let tariffaOraria;
+
+   for (let i = 0; i < jobsArray.length; i++) {
+
+      if (valueSelect === jobsArray[i].job) {
+
+         index = i;
+         break;
+
+      }
+   }
+
+   tariffaOraria = jobsArray[index].pricePerHour;
+   return tariffaOraria;
+
+} 
