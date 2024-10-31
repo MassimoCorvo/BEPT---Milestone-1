@@ -153,15 +153,22 @@ function printError(firstNameValid, lastNameValid, jobValid, emailValid, privacy
    const arrayError = [];
 
    if (!firstNameValid)
-      arrayError.push("Nome non valido");
+      { arrayError.push("Nome non valido");
+        nameForm.classList.add("error-input");
+      }
    if (!lastNameValid)
-      arrayError.push("Cognome non valido");
+      {arrayError.push("Cognome non valido");
+   cognomeForm.classList.add("error-input");}
    if (!jobValid)
-      arrayError.push("Inserisci tipo di lavoro");
+      {arrayError.push("Inserisci tipo di lavoro");
+   job.classList.add("error-input");}
    if (!emailValid)
-      arrayError.push("Email non valida");
+      {arrayError.push("Email non valida");
+   email.classList.add("error-input");}
    if (!privacyChecked)
-      arrayError.push("E' necessario accettare la privacy policy");
+      {arrayError.push("E' necessario accettare la privacy policy");
+       checkPrivacy.classList.add("error-input");
+      }
 
    if (arrayError.length > 0) {
       //Create error container
@@ -201,6 +208,21 @@ function resetError() {
 
    if (errorMessageContainer !== null && errorMessageContainer !== undefined) {
       errorMessageContainer.remove();
+
+      /*nameForm.classList.remove("error-input");
+      cognomeForm.classList.remove("error-input");
+      job.classList.remove("error-input");
+      email.classList.remove("error-input");
+      checkPrivacy.classList.remove("error-input"); */
+
+      let elements = document.querySelectorAll(".error-input");
+
+      for( let i = 0; i < elements.length; i++){
+
+         elements[i].classList.remove("error-input");
+
+      }
+
    }
 
 }
