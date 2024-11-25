@@ -209,19 +209,11 @@ function resetError() {
    if (errorMessageContainer !== null && errorMessageContainer !== undefined) {
       errorMessageContainer.remove();
 
-      /*nameForm.classList.remove("error-input");
+      nameForm.classList.remove("error-input");
       cognomeForm.classList.remove("error-input");
       job.classList.remove("error-input");
       email.classList.remove("error-input");
-      checkPrivacy.classList.remove("error-input"); */
-
-      let elements = document.querySelectorAll(".error-input");
-
-      for( let i = 0; i < elements.length; i++){
-
-         elements[i].classList.remove("error-input");
-
-      }
+      checkPrivacy.classList.remove("error-input");
 
    }
 
@@ -282,22 +274,6 @@ function printPrice(price) {
    let parteIntera = arrayPrice[0];
    let decimali = arrayPrice[1];
 
-   /*let dotFound = false;
-   for (let i = 0; i < priceString.length; i++) {
-
-      if (priceString[i] !== "." && !dotFound) {
-         parteIntera += priceString[i];
-      }
-      else if (priceString[i] === ".")
-         dotFound = true;
-      else {
-
-         decimali += priceString[i];
-
-      }
-
-   } */
-
    document.getElementById("parte-intera").innerText = parteIntera;
    document.getElementById("decimali").innerText = "," + decimali;
 
@@ -314,8 +290,8 @@ function resetPrice() {
 function createSelectOptions() {
 
    for (let i = 0; i < jobsArray.length; i++) {
-      //Verifico che il prezzo non sia un falsy value
-      if (jobsArray[i].pricePerHour) {
+      //Verifico che il prezzo sia un valore positivo
+      if (jobsArray[i].pricePerHour > 0) {
          const selectChoice = document.createElement("option");
          selectChoice.setAttribute("value", jobsArray[i].job);
          selectChoice.innerHTML = jobsArray[i].job;
@@ -332,6 +308,7 @@ function calcoloTariffaOraria(valueSelect) {
    let index = 0;
    let tariffaOraria;
 
+   //Cerco l'elemento nell'array dei lavori
    for (let i = 0; i < jobsArray.length; i++) {
 
       if (valueSelect === jobsArray[i].job) {
